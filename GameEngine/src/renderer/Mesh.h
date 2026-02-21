@@ -6,7 +6,6 @@
 class Mesh
 {
 public:
-    // vertexStride: number of floats per vertex (e.g. 5 for pos3 + uv2)
     Mesh(const std::vector<float>& vertices, int vertexStride);
     ~Mesh();
 

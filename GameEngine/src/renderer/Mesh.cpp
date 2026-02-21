@@ -8,23 +8,17 @@ Mesh::Mesh(const std::vector<float>& vertices, int vertexStride)
     glGenBuffers(1, &m_VBO);
 
     glBindVertexArray(m_VAO);
-
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER,
-        vertices.size() * sizeof(float),
-        vertices.data(),
-        GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
-    // Position attribute (location 0) — vec3
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-        vertexStride * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // Texture coords attribute (location 1) — vec2
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
-        vertexStride * sizeof(float),
-        (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 }

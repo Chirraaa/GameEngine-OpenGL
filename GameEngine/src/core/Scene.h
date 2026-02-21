@@ -1,15 +1,20 @@
 #pragma once
 
 #include "GameObject.h"
+#include <glm/glm.hpp>
 #include <vector>
 #include <memory>
 
 class Scene
 {
 public:
-	std::vector<std::unique_ptr<GameObject>> objects;
+    glm::vec3 lightPosition;
+    glm::vec3 lightColor;
 
-	GameObject* add(const std::string& name, Mesh* mesh, Shader* shader, Texture* texture);
-	
-	void draw(const glm::mat4& view, const glm::mat4& projection) const;
+    Scene();
+
+    GameObject* add(const std::string& name, Mesh* mesh, Shader* shader, Texture* texture);
+    void        draw(const glm::mat4& view, const glm::mat4& projection, const glm::vec3& cameraPos) const;
+
+    std::vector<std::unique_ptr<GameObject>> objects;
 };
