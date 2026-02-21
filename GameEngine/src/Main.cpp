@@ -4,6 +4,7 @@
 #include "renderer/Shader.h"
 #include "renderer/Texture.h"
 #include "renderer/Mesh.h"
+#include "renderer/Model.h"
 #include "camera/Camera.h"
 
 #include <glm/glm.hpp>
@@ -66,6 +67,8 @@ int main()
     Mesh    cubeMesh(cubeVertices, 8);
     UI      ui(window.getNativeWindow());
 
+    Model backpack("Models/backpack/backpack.obj", &shader, &texture);
+
     Scene scene;
     scene.lightPosition = glm::vec3(2.0f, 2.0f, 2.0f);
     scene.lightColor = glm::vec3(1.0f);
@@ -76,6 +79,9 @@ int main()
     GameObject* cube2 = scene.add("Cube2", &cubeMesh, &shader, &texture);
     cube2->transform.position = glm::vec3(1.5f, 0.0f, 0.0f);
     cube2->transform.scale = glm::vec3(0.5f);
+
+    GameObject* bp = scene.add("Backpack", &backpack);
+    bp->transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
 
     glEnable(GL_DEPTH_TEST);
 

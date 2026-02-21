@@ -4,6 +4,7 @@
 #include "../renderer/Mesh.h"
 #include "../renderer/Shader.h"
 #include "../renderer/Texture.h"
+#include "../renderer/Model.h"
 
 #include <string>
 #include <glm/glm.hpp>
@@ -15,6 +16,7 @@ public:
     Transform   transform;
 
     GameObject(const std::string& name, Mesh* mesh, Shader* shader, Texture* texture);
+    GameObject(const std::string& name, Model* model);
 
     void draw(const glm::mat4& view, const glm::mat4& projection,
         const glm::vec3& lightPos, const glm::vec3& lightColor,
@@ -24,4 +26,6 @@ private:
     Mesh* m_mesh;
     Shader* m_shader;
     Texture* m_texture;
+    Model* m_model;
+    bool     m_usesModel;
 };

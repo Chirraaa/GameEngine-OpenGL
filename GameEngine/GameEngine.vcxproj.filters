@@ -66,11 +66,16 @@
     <ClCompile Include="src\core\UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderer\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="glfw3.dll" />
     <None Include="shaders\default.frag" />
     <None Include="shaders\default.vert" />
+    <None Include="assimp-vc143-mtd.dll" />
+    <None Include="assimp-vc143-mtd.pdb" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -125,6 +130,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\vendor\imgui\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
