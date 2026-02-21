@@ -136,6 +136,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="src\core\GameObject.cpp" />
+    <ClCompile Include="src\core\Scene.cpp" />
+    <ClCompile Include="src\core\Transform.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\camera\Camera.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
@@ -150,6 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera\Camera.h" />
+    <ClInclude Include="src\core\GameObject.h" />
+    <ClInclude Include="src\core\Scene.h" />
+    <ClInclude Include="src\core\Transform.h" />
     <ClInclude Include="src\core\Window.h" />
     <ClInclude Include="src\renderer\Mesh.h" />
     <ClInclude Include="src\renderer\Shader.h" />
