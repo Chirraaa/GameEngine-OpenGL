@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\core\GameObject.cpp" />
+    <ClCompile Include="src\core\Ray.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Transform.cpp" />
     <ClCompile Include="src\core\UI.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="src\renderer\Model.cpp" />
     <ClCompile Include="src\renderer\Primitives.cpp" />
     <ClCompile Include="src\renderer\Shader.cpp" />
+    <ClCompile Include="src\renderer\ShadowMap.cpp" />
     <ClCompile Include="src\renderer\Texture.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_draw.cpp" />
@@ -165,6 +167,8 @@
     <None Include="glfw3.dll" />
     <None Include="shaders\default.frag" />
     <None Include="shaders\default.vert" />
+    <None Include="shaders\shadow.frag" />
+    <None Include="shaders\shadow.vert" />
     <None Include="shaders\unlit.frag" />
     <None Include="shaders\unlit.vert" />
   </ItemGroup>
@@ -172,6 +176,7 @@
     <ClInclude Include="src\camera\Camera.h" />
     <ClInclude Include="src\core\CallbackData.h" />
     <ClInclude Include="src\core\GameObject.h" />
+    <ClInclude Include="src\core\Ray.h" />
     <ClInclude Include="src\core\Scene.h" />
     <ClInclude Include="src\core\Transform.h" />
     <ClInclude Include="src\core\UI.h" />
@@ -184,6 +189,7 @@
     <ClInclude Include="src\renderer\Model.h" />
     <ClInclude Include="src\renderer\Primitives.h" />
     <ClInclude Include="src\renderer\Shader.h" />
+    <ClInclude Include="src\renderer\ShadowMap.h" />
     <ClInclude Include="src\renderer\Texture.h" />
     <ClInclude Include="src\vendor\imgui\imconfig.h" />
     <ClInclude Include="src\vendor\imgui\imgui.h" />

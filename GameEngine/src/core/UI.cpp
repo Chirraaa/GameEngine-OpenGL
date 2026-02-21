@@ -27,7 +27,7 @@ void UI::begin() const
 
 UIResult UI::render(Scene& scene, Camera& camera) const
 {
-    UIResult result{ "", PrimitiveType::None };
+    UIResult result{ "", PrimitiveType::None, false };
 
     ImGui::Begin("Debug");
 
@@ -58,14 +58,31 @@ UIResult UI::render(Scene& scene, Camera& camera) const
     {
         ImGui::DragFloat("Speed", &camera.speed, 0.1f, 0.1f, 20.0f);
         ImGui::DragFloat("Sensitivity", &camera.sensitivity, 0.01f, 0.01f, 1.0f);
-        ImGui::Text("Position: (%.2f, %.2f, %.2f)", camera.position.x, camera.position.y, camera.position.z);
+        ImGui::Text("Position: (%.2f, %.2f, %.2f)",
+            camera.position.x, camera.position.y, camera.position.z);
     }
 
     if (ImGui::CollapsingHeader("Objects"))
     {
-        for (auto& obj : scene.objects)
+        for (int i = 0; i < (int)scene.objects.size(); i++)
         {
-            if (ImGui::TreeNode(obj->name.c_str()))
+            auto& obj = scene.objects[i];
+
+            bool isSelected = (scene.selectedIndex == i);
+
+            if (isSelected)
+                ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.2f, 0.5f, 0.9f, 1.0f));
+
+            bool open = ImGui::TreeNodeEx(obj->name.c_str(),
+                isSelected ? ImGuiTreeNodeFlags_Selected : 0);
+
+            if (isSelected)
+                ImGui::PopStyleColor();
+
+            if (ImGui::IsItemClicked())
+                scene.selectedIndex = isSelected ? -1 : i;
+
+            if (open)
             {
                 ImGui::DragFloat3("Position", &obj->transform.position.x, 0.1f);
                 ImGui::DragFloat3("Rotation", &obj->transform.rotation.x, 1.0f);
@@ -87,6 +104,15 @@ UIResult UI::render(Scene& scene, Camera& camera) const
                     if (ImGui::Button("Reset Velocity"))
                         obj->rigidbody->reset();
                 }
+
+                ImGui::Separator();
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.7f, 0.1f, 0.1f, 1.0f));
+                if (ImGui::Button("Delete"))
+                {
+                    scene.selectedIndex = i;
+                    result.deleteSelected = true;
+                }
+                ImGui::PopStyleColor();
 
                 ImGui::TreePop();
             }

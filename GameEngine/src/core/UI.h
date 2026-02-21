@@ -16,6 +16,7 @@ struct UIResult
 {
     std::string   importedPath;
     PrimitiveType spawnPrimitive;
+    bool          deleteSelected;
 };
 
 class UI

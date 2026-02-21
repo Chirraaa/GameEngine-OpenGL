@@ -14,8 +14,8 @@
 class GameObject
 {
 public:
-    std::string            name;
-    Transform              transform;
+    std::string                name;
+    Transform                  transform;
     std::unique_ptr<Rigidbody> rigidbody;
 
     GameObject(const std::string& name, Mesh* mesh, Shader* shader, Texture* texture);
@@ -25,7 +25,10 @@ public:
 
     void draw(const glm::mat4& view, const glm::mat4& projection,
         const glm::vec3& lightPos, const glm::vec3& lightColor,
-        const glm::vec3& cameraPos) const;
+        const glm::vec3& cameraPos, const glm::mat4& lightSpaceMatrix,
+        unsigned int shadowMapSlot) const;
+
+    void drawDepth(Shader& depthShader) const;
 
 private:
     Mesh* m_mesh;

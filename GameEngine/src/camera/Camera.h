@@ -19,6 +19,8 @@ public:
     float speed;
     float sensitivity;
 
+    bool m_active;
+
     Camera(glm::vec3 startPosition = glm::vec3(0.0f, 0.0f, 3.0f));
 
     glm::mat4 getViewMatrix() const;
@@ -36,8 +38,6 @@ private:
     float m_lastX;
     float m_lastY;
     bool  m_firstMouse;
-
-    bool m_active;
 
     void updateVectors();
 };
