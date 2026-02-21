@@ -23,4 +23,6 @@ private:
     GLFWwindow* m_window;
     int m_width;
     int m_height;
+
+    static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
 };

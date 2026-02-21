@@ -91,7 +91,8 @@ void Camera::updateVectors()
 
 void Camera::mouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
-    Camera* cam = static_cast<Camera*>(glfwGetWindowUserPointer(window));
+    CallbackData* data = static_cast<CallbackData*>(glfwGetWindowUserPointer(window));
+    Camera* cam = data ? data->camera : nullptr;
     if (!cam || !cam->m_active) return;
 
     if (!cam) return;
@@ -113,8 +114,8 @@ void Camera::mouseCallback(GLFWwindow* window, double xpos, double ypos)
 
 void Camera::scrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    Camera* cam = static_cast<Camera*>(glfwGetWindowUserPointer(window));
+    CallbackData* data = static_cast<CallbackData*>(glfwGetWindowUserPointer(window));
+    Camera* cam = data ? data->camera : nullptr;
     if (!cam) return;
-
     cam->processScroll((float)yoffset);
 }

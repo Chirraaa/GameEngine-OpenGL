@@ -143,10 +143,13 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\camera\Camera.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
+    <ClCompile Include="src\physics\PhysicsWorld.cpp" />
+    <ClCompile Include="src\physics\Rigidbody.cpp" />
     <ClCompile Include="src\renderer\Axes.cpp" />
     <ClCompile Include="src\renderer\Grid.cpp" />
     <ClCompile Include="src\renderer\Mesh.cpp" />
     <ClCompile Include="src\renderer\Model.cpp" />
+    <ClCompile Include="src\renderer\Primitives.cpp" />
     <ClCompile Include="src\renderer\Shader.cpp" />
     <ClCompile Include="src\renderer\Texture.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
@@ -167,15 +170,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera\Camera.h" />
+    <ClInclude Include="src\core\CallbackData.h" />
     <ClInclude Include="src\core\GameObject.h" />
     <ClInclude Include="src\core\Scene.h" />
     <ClInclude Include="src\core\Transform.h" />
     <ClInclude Include="src\core\UI.h" />
     <ClInclude Include="src\core\Window.h" />
+    <ClInclude Include="src\physics\PhysicsWorld.h" />
+    <ClInclude Include="src\physics\Rigidbody.h" />
     <ClInclude Include="src\renderer\Axes.h" />
     <ClInclude Include="src\renderer\Grid.h" />
     <ClInclude Include="src\renderer\Mesh.h" />
     <ClInclude Include="src\renderer\Model.h" />
+    <ClInclude Include="src\renderer\Primitives.h" />
     <ClInclude Include="src\renderer\Shader.h" />
     <ClInclude Include="src\renderer\Texture.h" />
     <ClInclude Include="src\vendor\imgui\imconfig.h" />

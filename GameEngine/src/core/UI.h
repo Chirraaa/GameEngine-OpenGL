@@ -10,15 +10,23 @@
 #include "../camera/Camera.h"
 #include <string>
 
+enum class PrimitiveType { None, Cube, Sphere, Tetrahedron, Capsule, Plane, Circle };
+
+struct UIResult
+{
+    std::string   importedPath;
+    PrimitiveType spawnPrimitive;
+};
+
 class UI
 {
 public:
     UI(GLFWwindow* window);
     ~UI();
 
-    void        begin() const;
-    std::string render(Scene& scene, Camera& camera) const;
-    void        end() const;
+    void     begin() const;
+    UIResult render(Scene& scene, Camera& camera) const;
+    void     end() const;
 
 private:
     std::string openFileDialog() const;

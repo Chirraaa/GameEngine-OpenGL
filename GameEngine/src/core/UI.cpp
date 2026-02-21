@@ -25,15 +25,27 @@ void UI::begin() const
     ImGui::NewFrame();
 }
 
-std::string UI::render(Scene& scene, Camera& camera) const
+UIResult UI::render(Scene& scene, Camera& camera) const
 {
-    std::string importedPath = "";
+    UIResult result{ "", PrimitiveType::None };
 
     ImGui::Begin("Debug");
 
     if (ImGui::Button("Import Model"))
+        result.importedPath = openFileDialog();
+
+    if (ImGui::CollapsingHeader("Add Primitive"))
     {
-        importedPath = openFileDialog();
+        if (ImGui::Button("Cube"))        result.spawnPrimitive = PrimitiveType::Cube;
+        ImGui::SameLine();
+        if (ImGui::Button("Sphere"))      result.spawnPrimitive = PrimitiveType::Sphere;
+        ImGui::SameLine();
+        if (ImGui::Button("Tetrahedron")) result.spawnPrimitive = PrimitiveType::Tetrahedron;
+        if (ImGui::Button("Capsule"))     result.spawnPrimitive = PrimitiveType::Capsule;
+        ImGui::SameLine();
+        if (ImGui::Button("Plane"))       result.spawnPrimitive = PrimitiveType::Plane;
+        ImGui::SameLine();
+        if (ImGui::Button("Circle"))      result.spawnPrimitive = PrimitiveType::Circle;
     }
 
     if (ImGui::CollapsingHeader("Light"))
@@ -58,14 +70,31 @@ std::string UI::render(Scene& scene, Camera& camera) const
                 ImGui::DragFloat3("Position", &obj->transform.position.x, 0.1f);
                 ImGui::DragFloat3("Rotation", &obj->transform.rotation.x, 1.0f);
                 ImGui::DragFloat3("Scale", &obj->transform.scale.x, 0.01f);
+
+                if (obj->rigidbody)
+                {
+                    ImGui::Separator();
+                    ImGui::Text("Rigidbody");
+                    ImGui::DragFloat("Mass", &obj->rigidbody->mass, 0.1f, 0.1f, 100.0f);
+                    ImGui::DragFloat("Restitution", &obj->rigidbody->restitution, 0.01f, 0.0f, 1.0f);
+                    ImGui::Checkbox("Static", &obj->rigidbody->isStatic);
+                    ImGui::Text("Velocity: (%.2f, %.2f, %.2f)",
+                        obj->rigidbody->velocity.x,
+                        obj->rigidbody->velocity.y,
+                        obj->rigidbody->velocity.z);
+                    if (ImGui::Button("Apply Upward Impulse"))
+                        obj->rigidbody->applyForce(glm::vec3(0.0f, 300.0f, 0.0f));
+                    if (ImGui::Button("Reset Velocity"))
+                        obj->rigidbody->reset();
+                }
+
                 ImGui::TreePop();
             }
         }
     }
 
     ImGui::End();
-
-    return importedPath;
+    return result;
 }
 
 void UI::end() const
@@ -77,7 +106,6 @@ void UI::end() const
 std::string UI::openFileDialog() const
 {
     char path[MAX_PATH] = "";
-
     OPENFILENAMEA ofn = {};
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = NULL;
@@ -88,6 +116,5 @@ std::string UI::openFileDialog() const
 
     if (GetOpenFileNameA(&ofn))
         return std::string(path);
-
     return "";
 }

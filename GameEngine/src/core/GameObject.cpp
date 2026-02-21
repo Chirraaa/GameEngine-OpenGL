@@ -10,6 +10,11 @@ GameObject::GameObject(const std::string& name, Model* model)
 {
 }
 
+void GameObject::addRigidbody(float mass, float restitution, bool isStatic)
+{
+    rigidbody = std::make_unique<Rigidbody>(mass, restitution, isStatic);
+}
+
 void GameObject::draw(const glm::mat4& view, const glm::mat4& projection,
     const glm::vec3& lightPos, const glm::vec3& lightColor,
     const glm::vec3& cameraPos) const
