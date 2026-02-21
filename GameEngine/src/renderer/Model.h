@@ -28,6 +28,6 @@ private:
     Shader* m_shader;
     Texture* m_texture;
 
-    void processNode(aiNode* node, const aiScene* scene);
+    void                  processNode(aiNode* node, const aiScene* scene);
     std::unique_ptr<Mesh> processMesh(aiMesh* mesh);
 };

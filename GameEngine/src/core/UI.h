@@ -8,6 +8,7 @@
 
 #include "Scene.h"
 #include "../camera/Camera.h"
+#include <string>
 
 class UI
 {
@@ -15,7 +16,10 @@ public:
     UI(GLFWwindow* window);
     ~UI();
 
-    void begin() const;
-    void render(Scene& scene, Camera& camera) const;
-    void end() const;
+    void        begin() const;
+    std::string render(Scene& scene, Camera& camera) const;
+    void        end() const;
+
+private:
+    std::string openFileDialog() const;
 };

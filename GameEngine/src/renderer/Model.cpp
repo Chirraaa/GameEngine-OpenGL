@@ -6,7 +6,7 @@ Model::Model(const std::string& path, Shader* shader, Texture* texture)
 {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path,
-        aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenNormals);
+        aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
@@ -57,20 +57,12 @@ std::unique_ptr<Mesh> Model::processMesh(aiMesh* mesh)
         v.position[1] = mesh->mVertices[i].y;
         v.position[2] = mesh->mVertices[i].z;
 
-        v.normal[0] = mesh->mNormals[i].x;
-        v.normal[1] = mesh->mNormals[i].y;
-        v.normal[2] = mesh->mNormals[i].z;
+        v.normal[0] = mesh->mNormals ? mesh->mNormals[i].x : 0.0f;
+        v.normal[1] = mesh->mNormals ? mesh->mNormals[i].y : 0.0f;
+        v.normal[2] = mesh->mNormals ? mesh->mNormals[i].z : 1.0f;
 
-        if (mesh->mTextureCoords[0])
-        {
-            v.texCoord[0] = mesh->mTextureCoords[0][i].x;
-            v.texCoord[1] = mesh->mTextureCoords[0][i].y;
-        }
-        else
-        {
-            v.texCoord[0] = 0.0f;
-            v.texCoord[1] = 0.0f;
-        }
+        v.texCoord[0] = mesh->mTextureCoords[0] ? mesh->mTextureCoords[0][i].x : 0.0f;
+        v.texCoord[1] = mesh->mTextureCoords[0] ? mesh->mTextureCoords[0][i].y : 0.0f;
 
         vertices.push_back(v);
     }

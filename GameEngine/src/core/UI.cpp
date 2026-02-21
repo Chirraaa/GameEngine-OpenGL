@@ -1,4 +1,6 @@
 #include "UI.h"
+#include <windows.h>
+#include <commdlg.h>
 
 UI::UI(GLFWwindow* window)
 {
@@ -23,9 +25,16 @@ void UI::begin() const
     ImGui::NewFrame();
 }
 
-void UI::render(Scene& scene, Camera& camera) const
+std::string UI::render(Scene& scene, Camera& camera) const
 {
+    std::string importedPath = "";
+
     ImGui::Begin("Debug");
+
+    if (ImGui::Button("Import Model"))
+    {
+        importedPath = openFileDialog();
+    }
 
     if (ImGui::CollapsingHeader("Light"))
     {
@@ -55,10 +64,30 @@ void UI::render(Scene& scene, Camera& camera) const
     }
 
     ImGui::End();
+
+    return importedPath;
 }
 
 void UI::end() const
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+std::string UI::openFileDialog() const
+{
+    char path[MAX_PATH] = "";
+
+    OPENFILENAMEA ofn = {};
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;
+    ofn.lpstrFilter = "3D Models\0*.obj;*.fbx;*.gltf;*.glb\0All Files\0*.*\0";
+    ofn.lpstrFile = path;
+    ofn.nMaxFile = MAX_PATH;
+    ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
+
+    if (GetOpenFileNameA(&ofn))
+        return std::string(path);
+
+    return "";
 }

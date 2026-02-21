@@ -69,6 +69,12 @@
     <ClCompile Include="src\renderer\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\renderer\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderer\Axes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="glfw3.dll" />
@@ -76,6 +82,8 @@
     <None Include="shaders\default.vert" />
     <None Include="assimp-vc143-mtd.dll" />
     <None Include="assimp-vc143-mtd.pdb" />
+    <None Include="shaders\unlit.vert" />
+    <None Include="shaders\unlit.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -133,6 +141,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\renderer\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer\Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer\Axes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
