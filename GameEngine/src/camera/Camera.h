@@ -36,5 +36,7 @@ private:
     float m_lastY;
     bool  m_firstMouse;
 
+    bool m_active;
+
     void updateVectors();
 };

@@ -11,7 +11,8 @@ Camera::Camera(glm::vec3 startPosition)
     sensitivity(0.05f),
     m_lastX(0.0f),
     m_lastY(0.0f),
-    m_firstMouse(true)
+    m_firstMouse(true),
+    m_active(true)
 {
     updateVectors();
 }
@@ -28,10 +29,21 @@ glm::mat4 Camera::getProjectionMatrix(float aspectRatio) const
 
 void Camera::processKeyboard(GLFWwindow* window, float deltaTime)
 {
-    float velocity = speed * deltaTime;
-
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
+    static bool tabPressedLastFrame = false;
+    bool tabPressed = glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS;
+    if (tabPressed && !tabPressedLastFrame)
+    {
+        m_active = !m_active;
+        glfwSetInputMode(window, GLFW_CURSOR, m_active ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+    }
+    tabPressedLastFrame = tabPressed;
+
+    if (!m_active) return;
+
+    float velocity = speed * deltaTime;
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         position += velocity * front;
@@ -80,6 +92,8 @@ void Camera::updateVectors()
 void Camera::mouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
     Camera* cam = static_cast<Camera*>(glfwGetWindowUserPointer(window));
+    if (!cam || !cam->m_active) return;
+
     if (!cam) return;
 
     if (cam->m_firstMouse)

@@ -1,5 +1,6 @@
 #include "core/Window.h"
 #include "core/Scene.h"
+#include "core/UI.h"
 #include "renderer/Shader.h"
 #include "renderer/Texture.h"
 #include "renderer/Mesh.h"
@@ -8,7 +9,6 @@
 #include <glm/glm.hpp>
 
 static const std::vector<float> cubeVertices = {
-    // positions           // normals            // tex coords
     -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
      0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
      0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
@@ -54,8 +54,8 @@ static const std::vector<float> cubeVertices = {
 
 int main()
 {
-    Window  window(800, 600, "OpenGL Engine");
-    Camera  camera(glm::vec3(0.0f, 0.0f, 5.0f));
+    Window window(800, 600, "OpenGL Engine");
+    Camera camera(glm::vec3(0.0f, 0.0f, 5.0f));
 
     glfwSetWindowUserPointer(window.getNativeWindow(), &camera);
     glfwSetCursorPosCallback(window.getNativeWindow(), Camera::mouseCallback);
@@ -64,6 +64,7 @@ int main()
     Shader  shader("shaders/default.vert", "shaders/default.frag");
     Texture texture("Textures/wood.jpg");
     Mesh    cubeMesh(cubeVertices, 8);
+    UI      ui(window.getNativeWindow());
 
     Scene scene;
     scene.lightPosition = glm::vec3(2.0f, 2.0f, 2.0f);
@@ -103,6 +104,10 @@ int main()
             camera.getProjectionMatrix(window.getAspectRatio()),
             camera.position
         );
+
+        ui.begin();
+        ui.render(scene, camera);
+        ui.end();
 
         window.swapBuffers();
         window.pollEvents();
